@@ -12,6 +12,8 @@ import {
   Button
 } from './styled'
 
+import { Link } from 'react-router-dom';
+
 import data, { ProductProps } from '../../util/data'
 
 const ListProducts: React.FC = () => {
@@ -22,10 +24,6 @@ const ListProducts: React.FC = () => {
       setDataProducts(data);
     }
   },[])
-
-  // useEffect(() => {
-  //   console.log({ dataProducts },'products')
-  // },[dataProducts])
   
   return (
     <Container>
@@ -33,23 +31,23 @@ const ListProducts: React.FC = () => {
       <CardContainer>
         {dataProducts?.products.map((product, idx) => (
           <Card key={idx}>
-            {/* <Anchor href={`/product/${product.slug}`}> */}
+            <Link to={`/product/${product.slug}`}>
               <Image
                 src={product.image} 
                 alt={product.name} 
               />
-              <Content>
-                <Anchor href={`/product/${product.slug}`}>
-                  <Typography>
-                    { product.name }
-                  </Typography>
-                </Anchor>
+            </Link>
+            <Content>
+              <Link to={`/product/${product.slug}`}>
                 <Typography>
-                  <strong>${ product.price }</strong>
+                  { product.name }
                 </Typography>
-                <Button>Adiconar ao carrinho</Button>
-              </Content>
-            {/* </Anchor> */}
+              </Link>
+              <Typography>
+                <strong>${ product.price }</strong>
+              </Typography>
+              <Button>Adiconar ao carrinho</Button>
+            </Content>
           </Card>
         ))}
       </CardContainer>

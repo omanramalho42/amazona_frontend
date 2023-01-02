@@ -1,17 +1,15 @@
 import React from 'react'
 
-import { Container, Anchor } from './styled'
+import { Link } from 'react-router-dom'
+
+import { Container } from './styled'
 
 const Header: React.FC = () => {
   return (
     <Container>
-      <Anchor
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link to="/">
         Amazona
-      </Anchor>
+      </Link>
   </Container>
   )
 }

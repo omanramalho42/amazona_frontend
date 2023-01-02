@@ -10,10 +10,9 @@ import {
   ListProducts 
 } from './components'
 
-import Home from './screens/Home'
+import { Home, ProductScreen } from './screens'
 
 import './App.css'
-
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +21,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/product/:slug' element={<ProductScreen />}/>
         </Routes>
 
       </div>
