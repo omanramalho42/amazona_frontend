@@ -1,19 +1,31 @@
 import React from 'react'
+import { 
+  BrowserRouter,
+  Route,
+  Routes 
+} from 'react-router-dom'
+
+import { 
+  Header, 
+  ListProducts 
+} from './components'
+
+import Home from './screens/Home'
+
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <a
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Amazona
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+
+        <Routes>
+          <Route path='/' element={<Home />}/>
+        </Routes>
+
+      </div>
+    </BrowserRouter>
   );
 }
 
