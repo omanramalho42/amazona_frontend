@@ -1,12 +1,14 @@
-import axios from 'axios'
 import React, { useEffect, useReducer, useState } from 'react'
-import Col from 'react-bootstrap/esm/Col'
-import Row from 'react-bootstrap/esm/Row'
 
+import axios from 'axios'
 import logger from 'use-reducer-logger'
 
+import { Row, Col } from 'react-bootstrap'
+
 import { Product } from '../../components'
+
 import { ProductProps } from '../../util/data'
+import { Helmet } from 'react-helmet-async'
 
 const reducer = (state: any , action: any) => {
   switch(action.type) {
@@ -45,7 +47,12 @@ const Home = () => {
 
   return (
     <div>
-      <h4>Feataured images</h4>
+      <div>
+        <Helmet>
+          <title>Amazona</title>
+        </Helmet>
+        <h1>Feataured images</h1>
+      </div>
       {loading ? ( 
         <div>loading...</div>
       ) : error ? (
