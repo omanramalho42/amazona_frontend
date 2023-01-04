@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense, Fragment } from 'react'
 import { 
   BrowserRouter,
   Route,
@@ -6,25 +6,61 @@ import {
 } from 'react-router-dom'
 
 import { 
-  Header, 
-  ListProducts 
+  Header,
+  Footer
 } from './components'
 
-import { Home, ProductScreen } from './screens'
+import { GlobalStyle } from './styles/Global';
 
-import './App.css'
+import Container from 'react-bootstrap/Container'
+import { AppContainer } from './styles/App'
+
+const Home = lazy(() => import('./screens/Home'));
+const ProductScreen = lazy(() => import('./screens/ProductScreen'));
+
+const Loading: React.FC = () => {
+  return (
+    <div>
+      <h1>
+        loading.........
+      </h1>
+    </div>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <AppContainer>
+        <GlobalStyle />
+
         <Header />
 
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/product/:slug' element={<ProductScreen />}/>
-        </Routes>
+        <Container>
+          <Routes>
+            <Fragment>
+              <Route 
+                path='/' 
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <Home />
+                  </Suspense>
+                }
+              />
+              <Route 
+                path='/product/:slug' 
+                element={
+                  <Suspense fallback={<Loading />}>
+                    <ProductScreen />
+                  </Suspense>
+                }
+              />
+            </Fragment>
+          </Routes>
+        </Container>
 
-      </div>
+        <Footer />
+      </AppContainer>
     </BrowserRouter>
   );
 }

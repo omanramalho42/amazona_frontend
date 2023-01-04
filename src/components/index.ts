@@ -1,4 +1,11 @@
 import Header from "./Header";
-import ListProducts from "./ListProducts";
+import Product from "./Product";
+import Footer from "./Footer";
+import Rating from "./Rating";
 
-export { Header, ListProducts }
+export { 
+  Header, 
+  Footer, 
+  Product, 
+  Rating 
+}

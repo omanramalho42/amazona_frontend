@@ -1,16 +1,23 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
-
-import { Container } from './styled'
+import { Container, Navbar } from 'react-bootstrap' 
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Header: React.FC = () => {
   return (
-    <Container>
-      <Link to="/">
-        Amazona
-      </Link>
-  </Container>
+    <>
+      <Navbar bg='dark' variant='dark'>
+        <Container>
+          <Navbar.Brand>
+            <LinkContainer to="/">
+              <h4>
+                Amazona
+              </h4>
+            </LinkContainer>
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+    </>
   )
 }
 
