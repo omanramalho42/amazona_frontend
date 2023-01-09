@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useContext } from 'react'
 
 import axios from 'axios'
 
@@ -7,8 +7,16 @@ import { useParams } from 'react-router-dom'
 import { Image } from '../../styles/ProductScreen'
 
 import { Col, Row, ListGroup, Card, Badge, Button } from 'react-bootstrap'
-import { Rating } from '../../components'
+
+import { LoadingBox, MessageBox, Rating } from '../../components'
+
+import { Store } from '../../context/Store'
+
 import { Helmet } from 'react-helmet-async'
+
+import { getError } from '../../util/utils'
+
+import { useNavigate } from 'react-router-dom'
 
 const reducer = (state: any, action: any) => {
   switch(action.type) {
@@ -26,32 +34,63 @@ const reducer = (state: any, action: any) => {
 const ProductScreen = () => {
   const params = useParams();
   const { slug } = params;
-  
+  const navigate = useNavigate();
+
   const [{loading, error, product}, dispatch] = useReducer(reducer, {
     product: {},
     loading: true,
     error: ''
   });
+
   useEffect(() => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
       await axios.get(`http://localhost:3001/api/products/slug/${slug}`)
         .then((res) => {
-          console.log(res.data)
           dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
         })
-        .catch((error) => dispatch({ type: 'FETCH_FAIL', payload: error.message }))
+        .catch((error) => dispatch({ type: 'FETCH_FAIL', payload: getError(error) }))
     }
 
     fetchDataProducts();
   },[slug])
 
+  const { state, dispatch: ctxDispatch } = useContext<any>(Store);
+  const { cart } = state;
+  
+  const handleAddItemCart = async () => {
+    const existItem = cart.cartItems.find(
+      (item: any) => item._id === product._id
+    );
+    
+    const quantity = 
+      existItem 
+      ? existItem.quantity + 1 
+      : 1;
+
+    const { data } = await axios.get(`http://localhost:3001/api/products/${product._id}`);
+    
+    if(data.countInStock < quantity) {
+      window.alert("Desculpe o produto esta fora de estoque");
+      return;
+    }
+
+    ctxDispatch({
+      type: 'CART_ADD_ITEM', 
+      payload: { ...product, quantity }
+    })
+
+    navigate('/cart');
+  }
+
   return (
     loading ? (
-      <div>...loading</div>
+      <LoadingBox />
     ) : error ? (
-      <div>{ error }</div>
+      <MessageBox variant="danger">
+        { error }
+      </MessageBox>
     ) : (
       <div>
         <Row>
@@ -97,7 +136,7 @@ const ProductScreen = () => {
                     <Row>
                       <Col> Status: </Col>
                       <Col> 
-                        {product.counterInStock > 0 ? (
+                        {product.countInStock > 0 ? (
                           <Badge bg="success">
                             Em estoque
                           </Badge>
@@ -110,10 +149,10 @@ const ProductScreen = () => {
                     </Row>
                   </ListGroup.Item>
 
-                  {product.counterInStock > 0 && (
+                  {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <div className='d-grid'>
-                      <Button variant='primary'>
+                      <Button variant='primary' onClick={handleAddItemCart}>
                         Adiconar ao carrinho
                       </Button>
                       </div>

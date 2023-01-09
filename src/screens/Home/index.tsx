@@ -5,10 +5,11 @@ import logger from 'use-reducer-logger'
 
 import { Row, Col } from 'react-bootstrap'
 
-import { Product } from '../../components'
+import { LoadingBox, MessageBox, Product } from '../../components'
+
+import { Helmet } from 'react-helmet-async'
 
 import { ProductProps } from '../../util/data'
-import { Helmet } from 'react-helmet-async'
 
 const reducer = (state: any , action: any) => {
   switch(action.type) {
@@ -25,10 +26,12 @@ const reducer = (state: any , action: any) => {
 
 const Home = () => {
   const [dataProducts, setDataProducts] = useState<ProductProps>()
+  
   const [{loading, error, products}, dispatch] = useReducer(logger(reducer), {
     loading: true,
     error: ''
   });
+
   useEffect(() => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
@@ -54,12 +57,14 @@ const Home = () => {
         <h1>Feataured images</h1>
       </div>
       {loading ? ( 
-        <div>loading...</div>
+        <LoadingBox />
       ) : error ? (
-        <div>{ error }</div>
+        <MessageBox variant="danger">
+          { error }
+        </MessageBox>
       ) : (
         <Row>
-          {dataProducts?.products.map(( product, idx) => (
+          {dataProducts?.products.map(( product ) => (
             <Col sm={6} md={4} lg={3} key={product.slug}>
               <Product product={product} />
             </Col>
