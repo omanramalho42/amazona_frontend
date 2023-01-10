@@ -5,8 +5,10 @@ import reportWebVitals from './reportWebVitals';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { StoreProvider } from './context/Store';
+
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

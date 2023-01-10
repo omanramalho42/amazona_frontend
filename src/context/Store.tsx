@@ -3,6 +3,7 @@ import { ProductsProps } from '../util/data';
 
 interface CartProps {
   shippingAddress: any;
+  payamentMethod: any;
   cartItems: ProductsProps[];
 }
 
@@ -24,6 +25,9 @@ const initialState:StateProps = {
     shippingAddress: localStorage.getItem('shippingAddress')
     ? JSON.parse(localStorage.getItem('shippingAddress') || '')
     : {},
+    payamentMethod:  localStorage.getItem('payamentMethod')
+    ? localStorage.getItem('payamentMethod' || '')
+    : '',
     cartItems: localStorage.getItem('cartItems')
     ? JSON.parse(localStorage.getItem('cartItems') || '')
     : [],
@@ -62,7 +66,8 @@ const reducer = (state: StateProps, action: any) => {
         userInfo: null,
         cart: {
           cartItems: [],
-          shippingAddress: {}
+          shippingAddress: {},
+          payamentMethod: ""
         } 
       }
     case 'SAVE_SHIPPING_ADDRESS':
@@ -71,6 +76,14 @@ const reducer = (state: StateProps, action: any) => {
         cart: {
           ...state.cart,
           shippingAddress: action.payload
+        }
+      }
+    case 'SAVE_PAYAMENT_METHOD':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          payamentMethod: action.payload
         }
       }
     default:

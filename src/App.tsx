@@ -14,13 +14,12 @@ import { GlobalStyle } from './styles/Global'
 
 import { Container, ToastContainer } from 'react-bootstrap'
 import { AppContainer } from './styles/App'
+import Payament from './screens/Payament'
 
-import Cart from './screens/Cart'
-import { SignIn } from './screens'
-
-import 'react-toastify/dist/ReactToastify.css';
-import ShippingScreen from './screens/ShippingScreen'
-
+const SignUp = lazy(() => import('./screens/SignupScreen'));
+const Cart = lazy(() => import('./screens/Cart'));
+const SignIn = lazy(() => import('./screens/SigninScreen'));
+const ShippingScreen = lazy(() => import('./screens/ShippingScreen')); 
 const Home = lazy(() => import('./screens/Home'));
 const ProductScreen = lazy(() => import('./screens/ProductScreen'));
 
@@ -38,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
       <AppContainer>
-        <ToastContainer position='bottom-center' />
+          <ToastContainer position='bottom-center' />
           <GlobalStyle />
 
           <Header />
@@ -79,10 +78,26 @@ function App() {
                   }
                 />
                 <Route 
+                  path='/payament' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <Payament />
+                    </Suspense>
+                  }
+                />
+                <Route 
                   path='/signin' 
                   element={
                     <Suspense fallback={<Loading />}>
                       <SignIn />
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/signup' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <SignUp />
                     </Suspense>
                   }
                 />

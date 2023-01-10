@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Rating from "./Rating";
 import LoadingBox from "./LoadingBox";
 import MessageBox from "./MessageBox";
+import CheckoutSteps from "./CheckoutSteps";
 
 export { 
   Header, 
@@ -11,5 +12,6 @@ export {
   Product, 
   Rating,
   LoadingBox,
-  MessageBox
+  MessageBox,
+  CheckoutSteps
 }

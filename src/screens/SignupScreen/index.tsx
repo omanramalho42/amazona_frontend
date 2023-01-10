@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react'
+import React, 
+{ 
+  SyntheticEvent, 
+  useContext, 
+  useEffect, 
+  useState 
+} from 'react'
 
 import axios from 'axios';
 
@@ -17,17 +23,19 @@ import { Store } from '../../context/Store';
 import { toast } from 'react-toastify';
 import { getError } from '../../util/utils';
 
-const SignIn:React.FC = () => {
+const SignUp:React.FC = () => {
+  const navigate = useNavigate();
   const { search } = useLocation();
   const redirectUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectUrl ? redirectUrl : '/';
-
+  
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     const headers = {
@@ -36,10 +44,17 @@ const SignIn:React.FC = () => {
     }
 
     e.preventDefault();
+
+    if(password !== confirmPassword) {
+      toast.error("As senhas nao se conhecidem");
+      return;
+    }
+
     try {
-      const { data }: any = await  axios.post('http://localhost:3001/api/users/signin', 
+      const { data }: any = await  axios.post('http://localhost:3001/api/users/signup', 
         {
-          email, 
+          name,
+          email,
           password
         },
         { headers: headers }
@@ -50,7 +65,7 @@ const SignIn:React.FC = () => {
       
       navigate(redirect || '/');
     } catch (err) {
-      console.log("deu erro");
+      console.log('error ero');
       toast.error(getError(err));
     }
   }
@@ -64,12 +79,20 @@ const SignIn:React.FC = () => {
   return (
     <ContainerScreen>
       <Helmet>
-        <title>Login</title>
+        <title>Registrar</title>
       </Helmet>
       <h1 className='my-3'>
-        Login
+        Registrar
       </h1>
       <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId='name'>
+          <Form.Label>Nome</Form.Label>
+          <Form.Control 
+            type="name" 
+            required 
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
         <Form.Group className="mb-3" controlId='email'>
           <Form.Label>Email</Form.Label>
           <Form.Control 
@@ -86,13 +109,21 @@ const SignIn:React.FC = () => {
             onChange={(e) => setPassword(e.target.value)} 
           />
         </Form.Group>
+        <Form.Group className="mb-3" controlId='confirmPassword'>
+          <Form.Label>Confirmar Senha</Form.Label>
+          <Form.Control 
+            type="password" 
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)} 
+          />
+        </Form.Group>
         <div className='mb-3'>
-          <Button type='submit'>Login</Button>
+          <Button type='submit'>Registrar</Button>
         </div>
         <div className='mb-3'>
-          New Customer{' '}
-          <Link to={`/signup?redirect${redirect}`}>
-            Crie sua conta
+          Você já tem uma conta{' '}
+          <Link to={`/signin?redirect${redirect}`}>
+            Logue aqui
           </Link>
         </div>
       </Form>
@@ -100,4 +131,4 @@ const SignIn:React.FC = () => {
   )
 }
 
-export default SignIn
+export default SignUp;

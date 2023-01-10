@@ -15,6 +15,8 @@ const Header: React.FC = () => {
   const handleSignOut = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('payamentMethod');
   }
 
   return (
