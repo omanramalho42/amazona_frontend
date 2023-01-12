@@ -1,13 +1,15 @@
+import { spawn } from 'child_process';
 import React from 'react'
 
 import { Star } from './styled';
 
 interface RatingProps {
   rating: number;
-  numReviews: number;
+  numReviews?: number;
+  caption?: string;
 }
 
-const Rating = ({ rating, numReviews }: RatingProps) => {
+const Rating = ({ rating, numReviews, caption }: RatingProps) => {
   return (
     <div>
       <Star>
@@ -65,9 +67,11 @@ const Rating = ({ rating, numReviews }: RatingProps) => {
           }
         />
       </Star>
-      <span>
-        { numReviews } reviews
-      </span>
+      {caption ? (
+        <span>{caption}</span>
+      ) : (
+        <span>{' ' + numReviews + ' reviews'}</span>
+      )}
     </div>
   )
 }

@@ -65,7 +65,6 @@ const SignUp:React.FC = () => {
       
       navigate(redirect || '/');
     } catch (err) {
-      console.log('error ero');
       toast.error(getError(err));
     }
   }

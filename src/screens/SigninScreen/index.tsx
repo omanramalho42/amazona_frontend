@@ -50,7 +50,6 @@ const SignIn:React.FC = () => {
       
       navigate(redirect || '/');
     } catch (err) {
-      console.log("deu erro");
       toast.error(getError(err));
     }
   }

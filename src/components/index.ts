@@ -5,6 +5,8 @@ import Rating from "./Rating";
 import LoadingBox from "./LoadingBox";
 import MessageBox from "./MessageBox";
 import CheckoutSteps from "./CheckoutSteps";
+import ProtectedRoute from "./ProtecetedRoute";
+import AdminRoute from "./AdminRoute";
 
 export { 
   Header, 
@@ -13,5 +15,7 @@ export {
   Rating,
   LoadingBox,
   MessageBox,
-  CheckoutSteps
+  CheckoutSteps,
+  ProtectedRoute,
+  AdminRoute
 }
