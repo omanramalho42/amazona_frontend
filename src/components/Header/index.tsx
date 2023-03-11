@@ -68,10 +68,10 @@ const Header = ({ setSidebar }: HeaderProps) => {
                 </LinkContainer>
                 <NavDropdown.Divider />
                 <Link 
-                  className="dropdown-items" 
+                  className="d-flex justify-content-center dropdown-items" 
                   to="#signout" 
                   onClick={handleSignOut}
-                  >
+                >
                   SignOut
                 </Link>
               </NavDropdown>

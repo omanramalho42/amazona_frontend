@@ -13,11 +13,12 @@ import {
 
 import { GlobalStyle } from './styles/Global'
 
-import { Container, Nav, ToastContainer } from 'react-bootstrap'
+import { 
+  Container, 
+  ToastContainer 
+} from 'react-bootstrap'
 
 import { AppContainer } from './styles/App'
-
-import { LinkContainer } from 'react-router-bootstrap'
 
 import { getError } from './util/utils'
 
@@ -27,6 +28,7 @@ import axios from 'axios'
 import ProtectedRoute from './components/ProtecetedRoute'
 import Dashboard from './screens/Dashboard'
 import AdminRoute from './components/AdminRoute'
+import Sidebar from './components/Sidebar'
 
 const SearchScreen = lazy(() => import('./screens/SearchScreen'));
 const OrderHistory =lazy(() => import('./screens/OrderHistory'));
@@ -82,29 +84,11 @@ function App() {
           <GlobalStyle />
 
           <Header setSidebar={setSidebar} />
-          <div
-            className={
-              sidebar 
-              ? 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column' 
-              : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
-            }
-          >
-            <Nav className="flex-column text-white w-100 p-2">
-              <Nav.Item>
-                <strong>Categorias</strong>
-                {categories?.map((category: string) => (
-                  <Nav.Item key={category}>
-                    <LinkContainer
-                      to={{ pathname: '/search', search: `category=${category}` }}
-                      onClick={() => setSidebar((value:Boolean) => !value)}
-                    >
-                      <Nav.Link>{ category }</Nav.Link>
-                    </LinkContainer>
-                  </Nav.Item>
-                ))}
-              </Nav.Item>
-            </Nav>
-          </div>
+          <Sidebar 
+            categories={categories} 
+            setShow={setSidebar}
+            show={sidebar}
+          />
 
           <Container className='mt-3'>
             <Routes>

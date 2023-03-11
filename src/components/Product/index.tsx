@@ -44,10 +44,14 @@ const Product = ({ product }: ProductProps) => {
     });
   }
   return (
-    <Container>
+    <Container style={{ marginBottom: 20 }}>
       <Card>
         <Link to={`/product/${product.slug}`}>
           <Image
+            fluid
+            rounded
+            thumbnail
+            bsPrefix='teste'
             src={product.image} 
             alt={product.name}
             className="card-img-top" 
