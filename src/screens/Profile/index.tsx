@@ -1,10 +1,11 @@
 import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useContext, useState, useReducer, useEffect } from 'react'
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, ToastContainer } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Store } from '../../context/Store'
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Container } from '../../styles/Profile';
 import { getError } from '../../util/utils';
@@ -47,7 +48,7 @@ const Profile:React.FC = () => {
     e.preventDefault();
     
     if(password !== confirmPassword) {
-      toast.warning("As senhas nao se conhecidem");
+      toast.error("As senhas nao se conhecidem");
       return;
     }
 
@@ -68,12 +69,14 @@ const Profile:React.FC = () => {
     });
     ctxDispatch({ type: 'USER_SIGNIN', payload: data });
     localStorage.setItem('userInfo', JSON.stringify(data));
+
     toast.success("Usuário atualizido com sucesso!");
 
     } catch (err) {
       dispatch({ 
         type: 'UPDATE_FAIL' 
       });
+      console.log("Erro ao atualizar usuario");
       toast.error(getError(err));
     }
   }
@@ -86,6 +89,7 @@ const Profile:React.FC = () => {
       <h1>
         Perfil do usuário
       </h1>
+      <Toaster />
       <form onSubmit={handleSubmit}>
         <Form.Group className='mb-3' controlId='name'>
           <Form.Label>Nome</Form.Label>

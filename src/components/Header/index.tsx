@@ -24,7 +24,6 @@ const Header = ({ setSidebar }: HeaderProps) => {
     localStorage.removeItem('payamentMethod');
     window.location.href="/signin";
   }
-
   return (
     <Navbar bg='dark' variant='dark' expand="lg">
       <Container>
@@ -88,13 +87,13 @@ const Header = ({ setSidebar }: HeaderProps) => {
                 <LinkContainer to="/admin/dashboard">
                   <NavDropdown.Item>Dashboard</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/productslist">
+                <LinkContainer to="/admin/products">
                   <NavDropdown.Item>Produtos</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/orderlist">
+                <LinkContainer to="/admin/orders">
                   <NavDropdown.Item>Pedidos</NavDropdown.Item>
                 </LinkContainer>
-                <LinkContainer to="/userlist">
+                <LinkContainer to="/admin/users">
                   <NavDropdown.Item>Usuários</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>

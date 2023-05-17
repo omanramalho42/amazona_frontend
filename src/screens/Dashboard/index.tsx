@@ -1,4 +1,5 @@
 import React from 'react'
+import { } from 'chart.js'
 
 const Dashboard:React.FC = () => {
   return (
@@ -6,4 +7,4 @@ const Dashboard:React.FC = () => {
   )
 }
 
-export default Dashboard
+export default Dashboard;

@@ -63,7 +63,7 @@ const Home = () => {
           { error }
         </MessageBox>
       ) : (
-        <Row>
+        <Row className='mb-5'>
           {dataProducts?.products.map(( product ) => (
             <Col sm={6} md={4} lg={3} key={product.slug}>
               <Product product={product} />

@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 const AdminRoute = ({ children }: ProtectedRouteProps) => {
   const { state } = useContext(Store);
   const { userInfo } = state;
+  
   return userInfo && userInfo.isAdmin ? children : <Navigate to="/signin" />
 }
 

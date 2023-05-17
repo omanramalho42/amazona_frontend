@@ -1,9 +1,11 @@
-import React, { lazy, Suspense, Fragment, useState, useEffect } from 'react'
+import React, { lazy, Suspense, Fragment, useState, useEffect, useContext } from 'react'
 
 import { 
   BrowserRouter,
   Route,
-  Routes 
+  Routes, 
+  useLocation, 
+  useNavigate
 } from 'react-router-dom'
 
 import { 
@@ -29,6 +31,8 @@ import ProtectedRoute from './components/ProtecetedRoute'
 import Dashboard from './screens/Dashboard'
 import AdminRoute from './components/AdminRoute'
 import Sidebar from './components/Sidebar'
+import { OrdersScreen, ProductsScreen, UsersList } from './screens'
+import { Store } from './context/Store'
 
 const SearchScreen = lazy(() => import('./screens/SearchScreen'));
 const OrderHistory =lazy(() => import('./screens/OrderHistory'));
@@ -42,6 +46,8 @@ const SignIn = lazy(() => import('./screens/SigninScreen'));
 const ShippingScreen = lazy(() => import('./screens/ShippingScreen')); 
 const Home = lazy(() => import('./screens/Home'));
 const ProductScreen = lazy(() => import('./screens/ProductScreen'));
+const ProductEditScreen = lazy(() => import('./screens/ProductEditScreen'));
+const CreateProductScreen = lazy(() => import('./screens/CreateProductScreen'))
 
 const Loading: React.FC = () => {
   return (
@@ -55,7 +61,7 @@ const Loading: React.FC = () => {
 
 function App() {  
   const [sidebar, setSidebar] = useState(false);
-  
+
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchCategories = async () => {
@@ -80,7 +86,9 @@ function App() {
         }
       >
         <AppContainer>
-          <ToastContainer position='bottom-center' />
+          <ToastContainer 
+            position='bottom-center' 
+          />
           <GlobalStyle />
 
           <Header setSidebar={setSidebar} />
@@ -207,11 +215,57 @@ function App() {
                     </Suspense>
                   }
                 />
+                <Route 
+                  path='/admin/users' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AdminRoute>
+                        <UsersList />
+                      </AdminRoute>
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/admin/products' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AdminRoute>
+                        <ProductsScreen />
+                      </AdminRoute>
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/admin/product/edit/:slug' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <ProductEditScreen />
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/admin/product/create' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <CreateProductScreen />
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/admin/orders' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AdminRoute>
+                        <OrdersScreen />
+                      </AdminRoute>
+                    </Suspense>
+                  }
+                />
               </Fragment>
             </Routes>
           </Container>
 
-            <Footer />
+          <Footer />
         </AppContainer>
       </div>
     </BrowserRouter>

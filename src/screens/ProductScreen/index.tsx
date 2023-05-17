@@ -31,7 +31,7 @@ const reducer = (state: any, action: any) => {
   }
 }
 
-const ProductScreen = () => {
+const ProductScreen:React.FC = () => {
   const params = useParams();
   const { slug } = params;
   const navigate = useNavigate();
@@ -153,7 +153,7 @@ const ProductScreen = () => {
                     <ListGroup.Item>
                       <div className='d-grid'>
                       <Button variant='primary' onClick={handleAddItemCart}>
-                        Adiconar ao carrinho
+                        Adicionar ao carrinho
                       </Button>
                       </div>
                     </ListGroup.Item>

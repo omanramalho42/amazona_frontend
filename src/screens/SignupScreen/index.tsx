@@ -20,7 +20,7 @@ import {
 
 import { Store } from '../../context/Store';
 
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { getError } from '../../util/utils';
 
 const SignUp:React.FC = () => {
@@ -51,7 +51,7 @@ const SignUp:React.FC = () => {
     }
 
     try {
-      const { data }: any = await  axios.post('http://localhost:3001/api/users/signup', 
+      const { data }: any = await axios.post('http://localhost:3001/api/users/signup', 
         {
           name,
           email,
@@ -62,6 +62,7 @@ const SignUp:React.FC = () => {
 
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
+      toast.success("Sucesso ao criar a conta");
       
       navigate(redirect || '/');
     } catch (err) {
@@ -80,6 +81,7 @@ const SignUp:React.FC = () => {
       <Helmet>
         <title>Registrar</title>
       </Helmet>
+      <Toaster />
       <h1 className='my-3'>
         Registrar
       </h1>

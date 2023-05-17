@@ -14,7 +14,7 @@ import {
 
 import { Store } from '../../context/Store';
 
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { getError } from '../../util/utils';
 
 const SignIn:React.FC = () => {
@@ -30,6 +30,7 @@ const SignIn:React.FC = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: SyntheticEvent) => {
+    
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'bearer secret'
@@ -37,7 +38,7 @@ const SignIn:React.FC = () => {
 
     e.preventDefault();
     try {
-      const { data }: any = await  axios.post('http://localhost:3001/api/users/signin', 
+      const { data }: any = await axios.post('http://localhost:3001/api/users/signin', 
         {
           email, 
           password
@@ -45,8 +46,12 @@ const SignIn:React.FC = () => {
         { headers: headers }
       );
 
-      ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+      ctxDispatch({ 
+        type: 'USER_SIGNIN', 
+        payload: data 
+      });
       localStorage.setItem('userInfo', JSON.stringify(data));
+      toast.success("Sucesso ao logar na conta");
       
       navigate(redirect || '/');
     } catch (err) {
@@ -62,6 +67,7 @@ const SignIn:React.FC = () => {
 
   return (
     <ContainerScreen>
+      <Toaster />
       <Helmet>
         <title>Login</title>
       </Helmet>

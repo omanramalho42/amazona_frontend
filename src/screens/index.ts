@@ -10,6 +10,9 @@ import Payament from "./Payament"
 import ShippingScreen from "./ShippingScreen"
 import Dashboard from "./Dashboard"
 import SearchScreen from "./SearchScreen"
+import UsersList from './UsersList'
+import ProductsScreen from "./ProductsScreen"
+import OrdersScreen from "./OrdersScreen"
 
 export { 
   Home, 
@@ -23,5 +26,8 @@ export {
   Payament, 
   ShippingScreen,
   SearchScreen,
-  Dashboard
+  Dashboard,
+  UsersList,
+  ProductsScreen,
+  OrdersScreen
 }
