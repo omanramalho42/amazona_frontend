@@ -31,7 +31,7 @@ import ProtectedRoute from './components/ProtecetedRoute'
 import Dashboard from './screens/Dashboard'
 import AdminRoute from './components/AdminRoute'
 import Sidebar from './components/Sidebar'
-import { OrdersScreen, ProductsScreen, UsersList } from './screens'
+import { NewsScreen, OrdersScreen, ProductsScreen, UsersList } from './screens'
 import { Store } from './context/Store'
 
 const SearchScreen = lazy(() => import('./screens/SearchScreen'));
@@ -48,6 +48,7 @@ const Home = lazy(() => import('./screens/Home'));
 const ProductScreen = lazy(() => import('./screens/ProductScreen'));
 const ProductEditScreen = lazy(() => import('./screens/ProductEditScreen'));
 const CreateProductScreen = lazy(() => import('./screens/CreateProductScreen'))
+const AdsenseScreen = lazy(() => import('./screens/AdsenseScreen'))
 
 const Loading: React.FC = () => {
   return (
@@ -204,6 +205,15 @@ function App() {
                   }
                 />
 
+                <Route 
+                  path='/news' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <NewsScreen />
+                    </Suspense>
+                  }
+                />
+
                 {/* ASDMIN ROUTES */}
                 <Route 
                   path='/admin/dashboard' 
@@ -257,6 +267,16 @@ function App() {
                     <Suspense fallback={<Loading />}>
                       <AdminRoute>
                         <OrdersScreen />
+                      </AdminRoute>
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path='/admin/adsense' 
+                  element={
+                    <Suspense fallback={<Loading />}>
+                      <AdminRoute>
+                        <AdsenseScreen />
                       </AdminRoute>
                     </Suspense>
                   }

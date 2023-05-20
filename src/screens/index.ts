@@ -13,6 +13,8 @@ import SearchScreen from "./SearchScreen"
 import UsersList from './UsersList'
 import ProductsScreen from "./ProductsScreen"
 import OrdersScreen from "./OrdersScreen"
+import AdsenseScreen from "./AdsenseScreen"
+import NewsScreen from "./NewsScreen"
 
 export { 
   Home, 
@@ -29,5 +31,7 @@ export {
   Dashboard,
   UsersList,
   ProductsScreen,
-  OrdersScreen
+  OrdersScreen,
+  AdsenseScreen,
+  NewsScreen
 }

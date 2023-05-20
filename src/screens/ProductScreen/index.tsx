@@ -31,10 +31,13 @@ const reducer = (state: any, action: any) => {
   }
 }
 
-const ProductScreen:React.FC = () => {
+const ProductScreen = () => {
   const params = useParams();
   const { slug } = params;
   const navigate = useNavigate();
+
+  const { state, dispatch: ctxDispatch } = useContext<any>(Store);
+  const { userInfo, cart } = state;
 
   const [{loading, error, product}, dispatch] = useReducer(reducer, {
     product: {},
@@ -46,18 +49,15 @@ const ProductScreen:React.FC = () => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
-      await axios.get(`http://localhost:3001/api/products/slug/${slug}`)
-        .then((res) => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
-        })
-        .catch((error) => dispatch({ type: 'FETCH_FAIL', payload: getError(error) }))
+      await axios.get(`http://localhost:3001/api/products/slug/${slug}`,
+        { headers: { authorization: `Bearer ${userInfo.token}` }
+      }).then((res) => {
+        dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
+      }).catch((error) => dispatch({ type: 'FETCH_FAIL', payload: getError(error) }))
     }
 
     fetchDataProducts();
   },[slug])
-
-  const { state, dispatch: ctxDispatch } = useContext<any>(Store);
-  const { cart } = state;
   
   const handleAddItemCart = async () => {
     const existItem = cart.cartItems.find(

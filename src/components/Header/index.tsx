@@ -96,6 +96,12 @@ const Header = ({ setSidebar }: HeaderProps) => {
                 <LinkContainer to="/admin/users">
                   <NavDropdown.Item>Usuários</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/admin/adsense">
+                  <NavDropdown.Item>Anúncios</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/news">
+                  <NavDropdown.Item>Noticias</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             )}
           </Nav>

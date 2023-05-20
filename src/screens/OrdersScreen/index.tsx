@@ -1,10 +1,10 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { getError } from '../../util/utils'
 import { useNavigate } from 'react-router-dom'
 import { Store } from '../../context/Store'
 import { LoadingBox, MessageBox } from '../../components'
-import { Button } from 'react-bootstrap'
+import { Button, Modal, ModalBody, ModalDialog, ModalTitle } from 'react-bootstrap'
 
 const reducer = (state: any, action: any) => {
   switch(action.type) {
@@ -30,6 +30,8 @@ const OrdersScreen:React.FC = () => {
     error: ''
   });
 
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -44,11 +46,12 @@ const OrdersScreen:React.FC = () => {
       }
     }
     fetchData();
-  },[userInfo])
+  },[userInfo]);
 
-  useEffect(() => {
-    console.log("ordens:", {orders} , "Loading: ",loading, "erro:", error,'info fetch data');
-  },[orders])
+  const [trackerCode, setTrackerCode] = useState("");
+  const handleSubmit = (event: any) => {
+    console.log(event);
+  }
 
   return (
     <div>
@@ -94,12 +97,71 @@ const OrdersScreen:React.FC = () => {
               >
                 Detalhes
               </Button>
+              {order.deliveredTrackingCode !== null ? (
+                <>
+                  <Button
+                    type='button'
+                    disabled
+                    variant='success'
+                    className='mx-1'
+                    value={order.deliveredTrackingCode}
+                    onClick={(event: any) => {
+                      setShow(!show)
+                      setTrackerCode(event.target.value)
+                    }}
+                  >
+                    { order.deliveredTrackingCode.toString() }
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  type='button'
+                  variant='warning'
+                  className='mx-1'
+                  onClick={() => setShow((value) => !value)}
+                >
+                  + Add Tracker Code
+                </Button>
+              )}
             </td>
           </tr>
         ))}
         </tbody>
       </table>
       )}
+      <Modal
+        show={show}
+        keyboard
+        onHide={() => setShow(false)}
+        onExit={() => setShow(false)} 
+        // onEnter={() => setShow(true)}
+      >
+        <ModalTitle className='p-1'>
+          + Adicionar codigo de rastreio ao pedido
+        </ModalTitle>
+        <ModalBody className='d-flex'>
+          <label htmlFor='trackerCode' className='m-1'>
+            Escreva o codigo de rastreio:
+          </label>
+          <input 
+            name='trackerCode'
+            type="text" 
+            value={trackerCode || ""} 
+            onChange={(event) => 
+              setTrackerCode(() => event.target.value)
+            } 
+          />
+          <Button 
+            className='' 
+            variant='success' 
+            onClick={(event: any) => 
+              handleSubmit(event)
+            }
+          >
+            + Add
+          </Button>
+        </ModalBody>
+      </Modal>
     </div>
   )
 }

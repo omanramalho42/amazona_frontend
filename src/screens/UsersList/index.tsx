@@ -46,10 +46,6 @@ const UsersList:React.FC = () => {
     fetchData();
   },[userInfo])
 
-  if(users) {
-    console.log(users,'users')
-  }
-
   return (
     <div>
       {loading ? (

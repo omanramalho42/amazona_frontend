@@ -4,7 +4,7 @@ import { getError } from '../../util/utils'
 import { useNavigate } from 'react-router-dom'
 import { Store } from '../../context/Store'
 import { LoadingBox, MessageBox } from '../../components'
-import { Button } from 'react-bootstrap'
+import { Badge, Button } from 'react-bootstrap'
 import { Toaster, toast } from 'react-hot-toast'
 
 const reducer = (state: any, action: any) => {
@@ -91,10 +91,28 @@ const ProductsScreen:React.FC = () => {
               <td>{ product.createdAt.substring(0, 10) }</td>
               <td>{ product.name }</td>
               <td className='text-center'>
-                { product.price }
+                R$ { product.price.toFixed(2) }
               </td>
               <td className='text-center'>
-                { product.countInStock }
+              {product.countInStock > 0 ? (
+                <>
+                  <Badge bg="success">
+                    Em estoque
+                  </Badge>
+                  <p>
+                    { product.countInStock }
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Badge bg="danger">
+                    Fora de estoque
+                  </Badge>
+                  <p>
+                    0
+                  </p>
+                </>
+              )}
               </td>
               <td className='flex-row'>
                 <Button
@@ -118,7 +136,7 @@ const ProductsScreen:React.FC = () => {
                 <Button
                   type="button"
                   className='m-2'
-                  variant='success'
+                  variant='dark'
                   onClick={() => {
                     navigate(`/admin/product/edit/${product.slug}`)
                   }}
