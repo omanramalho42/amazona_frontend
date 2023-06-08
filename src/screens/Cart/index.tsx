@@ -16,7 +16,7 @@ const Cart: React.FC = () => {
   const navigate = useNavigate();
 
   const handleUpdateCart = async (item: any, quantity: number) => {
-    const { data } = await axios.get(`${process.env.API_URL}/api/products/${item._id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/${item._id}`);
     
     if(data.countInStock < quantity) {
       window.alert("Desculpe o produto esta fora de estoque");

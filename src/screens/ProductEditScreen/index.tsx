@@ -48,7 +48,7 @@ const ProductEditScreen = () => {
 
     try {
       setUseLoading(true);
-      const res = await axios.put(`${process.env.API_URL}/api/products/slug/${product._id}`, 
+      const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/products/slug/${product._id}`, 
         {
           name: productName,
           slug: validSlug,
@@ -71,7 +71,7 @@ const ProductEditScreen = () => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
-      await axios.get(`${process.env.API_URL}/api/products/slug/${slug}`, {headers: { authorization: `Bearer ${userInfo.token}` }})
+      await axios.get(`${process.env.REACT_APP_API_URL}/api/products/slug/${slug}`, {headers: { authorization: `Bearer ${userInfo.token}` }})
         .then((res) => {
           dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
         })

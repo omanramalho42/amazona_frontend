@@ -36,7 +36,7 @@ const Home = () => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
-      await axios.get(`${process.env.API_URL}/api/products`)
+      await axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
         .then((res) => {
           setDataProducts({ products: res.data })
           dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
@@ -46,6 +46,8 @@ const Home = () => {
 
     fetchDataProducts();
   },[])
+
+  useEffect(() => { console.log(process.env.REACT_APP_API_URL,'API URL')},[])
 
 
   return (

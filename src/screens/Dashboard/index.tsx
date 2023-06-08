@@ -59,7 +59,7 @@ const Dashboard:React.FC = () => {
     const fetchCategories = async () => {
       try {
         setCategoriesLoading(true);
-        const { data }: any = await axios.get(`${process.env.API_URL}/api/products/categories`);
+        const { data }: any = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/categories`);
         setCategories(data);
       } catch (error) {
         toast.error(getError(error));
@@ -75,7 +75,7 @@ const Dashboard:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`${process.env.API_URL}/api/orders/listorders`, {
+        const { data }: any = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/listorders`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         // setOrders(data.orders);
@@ -91,7 +91,7 @@ const Dashboard:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`${process.env.API_URL}/api/products/listproducts`, {
+        const { data }: any = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/listproducts`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         
@@ -107,7 +107,7 @@ const Dashboard:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`${process.env.API_URL}/api/users/listusers`, {
+        const { data }: any = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/listusers`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         

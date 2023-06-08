@@ -45,7 +45,7 @@ const CreateProductScreen = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${process.env.API_URL}/api/products/slug/create`, 
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/products/slug/create`, 
         {
           name: productName,
           slug: validSlug,

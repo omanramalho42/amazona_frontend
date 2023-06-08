@@ -31,7 +31,7 @@ const Product = ({ product }: ProductProps) => {
   const handleAddToCart = async (item: any) => {
     const existItem = cartItems.find((item:any) => item._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`${process.env.API_URL}/api/products/${item._id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/${item._id}`);
     
     if(data.countInStock < quantity) {
       window.alert("Desculpe o produto esta fora de estoque");

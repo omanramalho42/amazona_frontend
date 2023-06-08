@@ -44,7 +44,7 @@ const OrderHistory:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`${process.env.API_URL}/api/orders/mine`, {
+        const { data }: any = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/mine`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         
