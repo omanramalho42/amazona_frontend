@@ -91,7 +91,7 @@ const SearchScreen = () => {
     const fetchData = async () => {
       try {
         const { data }: any = await axios.get(
-          `http://localhost:3001/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
+          `${process.env.API_URL}/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
         dispatch({ type: 'FETCH_SUCCESS',payload: data });
       } catch (error) {
@@ -105,7 +105,7 @@ const SearchScreen = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data }: any = await axios.get('http://localhost:3001/api/products/categories');
+        const { data }: any = await axios.get('${process.env.API_URL}/api/products/categories');
         setCategories(data);
       } catch (error) {
         toast.error(getError(error));

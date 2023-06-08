@@ -29,7 +29,7 @@ const ProductsScreen:React.FC = () => {
 
   const handleRemoveProduct = async (id: string) => {
     setUseLoading(true);
-    await axios.delete(`http://localhost:3001/api/products/slug/${id}`, {
+    await axios.delete(`${process.env.API_URL}/api/products/slug/${id}`, {
       headers: { authorization: `Bearer ${userInfo.token}` }
     })
       .then((res) => {
@@ -51,7 +51,7 @@ const ProductsScreen:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`http://localhost:3001/api/products/listproducts`, {
+        const { data }: any = await axios.get(`${process.env.API_URL}/api/products/listproducts`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         

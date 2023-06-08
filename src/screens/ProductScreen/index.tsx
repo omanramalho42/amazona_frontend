@@ -49,7 +49,7 @@ const ProductScreen = () => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
-      await axios.get(`http://localhost:3001/api/products/slug/${slug}`,
+      await axios.get(`${process.env.API_URL}/api/products/slug/${slug}`,
         { headers: { authorization: `Bearer ${userInfo.token}` }
       }).then((res) => {
         dispatch({ type: 'FETCH_SUCCESS', payload: res.data })
@@ -69,7 +69,7 @@ const ProductScreen = () => {
       ? existItem.quantity + 1 
       : 1;
 
-    const { data } = await axios.get(`http://localhost:3001/api/products/${product._id}`);
+    const { data } = await axios.get(`${process.env.API_URL}/api/products/${product._id}`);
     
     if(data.countInStock < quantity) {
       window.alert("Desculpe o produto esta fora de estoque");

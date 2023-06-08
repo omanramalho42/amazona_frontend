@@ -54,7 +54,7 @@ const Profile:React.FC = () => {
 
     try {
       const { data }:any  = await axios.put(
-        `http://localhost:3001/api/users/profile`, 
+        `${process.env.API_URL}/api/users/profile`, 
       {
         name,
         email,

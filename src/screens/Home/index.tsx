@@ -36,7 +36,7 @@ const Home = () => {
     const fetchDataProducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
 
-      await axios.get("http://localhost:3001/api/products")
+      await axios.get(`${process.env.API_URL}/api/products`)
         .then((res) => {
           setDataProducts({ products: res.data })
           dispatch({ type: 'FETCH_SUCCESS', payload: res.data })

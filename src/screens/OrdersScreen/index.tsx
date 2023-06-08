@@ -36,7 +36,7 @@ const OrdersScreen:React.FC = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data }: any = await axios.get(`http://localhost:3001/api/orders/listorders`, {
+        const { data }: any = await axios.get(`${process.env.API_URL}/api/orders/listorders`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         

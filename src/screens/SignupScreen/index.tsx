@@ -51,7 +51,7 @@ const SignUp:React.FC = () => {
     }
 
     try {
-      const { data }: any = await axios.post('http://localhost:3001/api/users/signup', 
+      const { data }: any = await axios.post(`${process.env.API_URL}/api/users/signup`, 
         {
           name,
           email,

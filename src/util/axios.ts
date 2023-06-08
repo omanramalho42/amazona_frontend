@@ -9,7 +9,7 @@ const getListProducts = async () => {
 
   try {
       const data = 
-        await axios.get("http://localhost:3001/api/products", { headers })
+        await axios.get(`${process.env.API_URL}/api/products`, { headers })
   
       return data;
     } catch (error: any) {

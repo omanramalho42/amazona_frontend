@@ -99,7 +99,7 @@ const Order = () => {
     return actions.order.capture().then(async function (details: any) {
       try {
         dispatch({ type: 'PAY_REQUEST' });
-        const { data }: any = axios.put(`http://localhost:3001/api/orders/${order._id}/pay`, 
+        const { data }: any = axios.put(`${process.env.API_URL}/api/orders/${order._id}/pay`, 
           {
             details,
           },
@@ -124,7 +124,7 @@ const Order = () => {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data }: any = await axios.get(`http://localhost:3001/api/orders/${orderId}`, {
+        const { data }: any = await axios.get(`${process.env.API_URL}/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}`}
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -143,7 +143,7 @@ const Order = () => {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get(`http://localhost:3001/api/keys/paypal`, {
+        const { data: clientId } = await axios.get(`${process.env.API_URL}/api/keys/paypal`, {
           headers: { authorization: `Bearer ${userInfo.token}` }
         });
         paypalDispatch({

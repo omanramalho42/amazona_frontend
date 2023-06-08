@@ -59,7 +59,7 @@ const PlaceOrder:React.FC = () => {
       dispatch({ type: 'CREATE_REQUEST' });
     
       const { data } = await axios.post(
-        'http://localhost:3001/api/orders',
+        `${process.env.API_URL}/api/orders`,
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,

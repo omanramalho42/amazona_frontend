@@ -38,7 +38,7 @@ const SignIn:React.FC = () => {
 
     e.preventDefault();
     try {
-      const { data }: any = await axios.post('http://localhost:3001/api/users/signin', 
+      const { data }: any = await axios.post(`${process.env.API_URL}/api/users/signin`, 
         {
           email, 
           password
